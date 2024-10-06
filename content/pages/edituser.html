@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | {{ .appName }} - Edit {{ .username }}</title>
+	<link rel="stylesheet" href="../../../../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../../../../../images/logofav.ico">
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+</head>
+
+<body id="panel-body">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../../../../images/logo.png">
+			<h2>{{ .title }}</h2>
+		</div>
+
+		<div id="panel-items">
+            <li><img alt="Dashboard" src="../../../../../images/dashboard.png"><a href="/panel/dashboard">Return to Dashboard</a></li>
+			<li><img alt="Overview" src="../../../../../images/overview.png"><a href="/panel/dashboard/app/{{.Secret}}">Overview</a></li>
+			<li><img alt="Licenses" src="../../../../../images/key.png"><a href="/panel/dashboard/app/{{.Secret}}/licenses">Licenses</a></li>
+			<li><img alt="Users" src="../../../../../images/users.png"><a href="/panel/dashboard/app/{{.Secret}}/users">Users</a></li>
+			<li><img alt="Variables" src="../../../../../images/variable.png"><a href="/panel/dashboard/app/{{.Secret}}/variables">Variables</a></li>
+			<li><img alt="Blacklists" src="../../../../../images/blacklist.png"><a href="/panel/dashboard/app/{{.Secret}}/blacklists">Blacklists</a></li>
+			<li><img alt="Logs" src="../../../../../../images/log.png"><a href="/panel/dashboard/app/{{.Secret}}/logs">Logs</a></li>
+			<li><img alt="Settings" src="../../../../../images/settings.png"><a href="/panel/dashboard/app/{{.Secret}}/settings">Settings</a></li>
+		</div>
+	</section>
+
+
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<i id="menu-btn" class="fas fa-bars"></i>
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../../../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../../../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../../../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../../../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			Editing {{ .username }}
+		</h3>
+
+		<div id="manage-licenses-add">
+			<h1 id="title-of-create-app">
+				Manage
+			</h1>
+			<form method="POST" action="/panel/dashboard/app/users">
+				<input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+				<input type="hidden" name="action" value="update" maxlength="256">
+				<input type="hidden" name="secret" value="{{.Secret}}" maxlength="256">
+				<div id="inputBox-Licenses">
+					<span>Username</span>
+					<input type="text" name="username" required="required" value="{{.username}}" maxlength="256" readonly>
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Password</span>
+					<input type="text" name="password" value="" maxlength="256">
+				</div>
+                <div id="inputBox-Licenses">
+					<span>Email</span>
+					<input type="text" name="email" value="{{.email}}" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>IP-Address</span>
+					<input type="text" name="ip" value="{{.ip}}" maxlength="256">
+				</div>
+                <div id="inputBox-Licenses">
+					<span>Expires</span>
+					<input type="text" name="expires" value="{{.expires}}" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Variable</span>
+					<input type="text" name="variable" value="{{.var}}" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Level</span>
+					<input type="number" name="level" required="required" value="{{.level}}" min="0" max="10" maxlength="256">
+				</div>
+                <div id="inputBox-Licenses">
+					<span>HWID</span>
+					<input type="text" name="hwid" value="{{.hwid}}" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Last Login</span>
+					<input type="text" name="last_login" value="{{.last_login}}" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Created At</span>
+					<input type="text" name="created_at" value="{{.created_at}}" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Banned</span>
+					<input type="number" name="banned" required="required" value="{{.banned}}" min="0" max="1" maxlength="256">
+				</div>
+
+				<div id="inputBox-Licenses">
+					<input type="submit" value="Save" maxlength="256">
+				</div>
+			</form>
+		</div>
+		
+		
+
+		
+	</section>
+
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+	<script>
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>

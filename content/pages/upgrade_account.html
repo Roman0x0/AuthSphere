@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Upgrade</title>
+	<link rel="stylesheet" href="../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="../images/logofav.ico">
+
+    <link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+    <meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+    <meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+    <script src="https://cdn.sellix.io/static/js/embed.js"></script>
+    <link href="https://cdn.sellix.io/static/css/embed.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+</head>
+
+<body id="panel-body">
+    <h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../images/logo.png">
+			<h2>{{ .title }}</h2>
+		</div>
+
+		<div id="panel-items">
+			<li><img alt="Dashboard" src="../../images/dashboard.png"><a href="/panel/dashboard">Dashboard</a></li>
+			<li><img alt="Logs" src="../../images/log.png"><a href="/panel/logs">Logs</a></li>
+			<li><img alt="Documentation" src="../../images/Documentation.png"><a href="#">Documentation</a></li>
+			<li id="active-selection"><img alt="Account" src="../../images/customer.png"><a href="/panel/account">Account</a></li>
+			<li><img alt="Support" src="../../images/support.png"><a href="#">Support</a></li>
+		</div>
+	</section>
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<i id="menu-btn" class="fas fa-bars"></i>
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			Upgrade
+		</h3>
+
+
+        <div id="panel-account-upgrade">
+			<div id="panel-account-upgrade-container">
+
+                <h1 id="title-of-create-app">
+                    Invoices
+                </h1>
+
+                <div id="application-table">
+                    <table width="100%" id="invoice-table">
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Created At</td>
+                                <td>Gateway</td>
+                                <td>Amount</td>
+                                <td>Status</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Payments}}
+                            <tr>
+                                <td id="application-name">
+                                    <h5>{{.PaymentID}}</h5>
+                                </td>
+                                <td id="application-secret">
+                                    <h5>{{.Created_At}}</h5>
+                                </td>
+                                <td id="application-name">
+                                    <h5>{{.Gateway}}</h5>
+                                </td>
+                                <td id="application-secret">
+                                    <h5>{{.Amount}}</h5>
+                                </td>
+                                <td id="application-status">
+                                    <h5 style="background: {{ .Color }};">{{.Status}}</h5>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+        
+                    </table>	
+                </div>
+            </div>
+        </div>
+
+		<div id="panel-account-upgrade">
+			<div id="panel-account-upgrade-container">
+				<h1 id="title-of-upgrade">
+					Upgrade your account and enjoy access to more features, security and support!
+				</h1>
+                
+                <div id="price-row">
+                    <div id="price-col">
+                        <p>FREE</p>
+                        <h3>€0 <span>/ month</span></h3>
+                        <ul>
+                            <li>1 Application</li>
+                            <li>30 Licenses</li>
+                            <li>5 Licenses per req</li>
+                            <li>30 Users</li>
+                            <li>5 Variables</li>
+                            <li>5 Blacklists</li>
+                            <li>50 Logs</li>
+                            
+                        </ul>
+                        <button>{{.buttonFree}}</button>
+                    </div>
+                    <div id="price-col-mid">
+                        <p>PROFESSIONAL</p>
+                        <h3>€10 <span>/ 6 months</span></h3>
+                        <ul>
+                            <li>UNLIMITED Applications</li>
+                            <li>UNLIMITED Licenses</li>
+                            <li>10.000 Licenses each req</li>
+                            <li>UNLIMITED Users</li>
+                            <li>UNLIMITED Variables</li>
+                            <li>UNLIMITED Blacklists</li>
+                            <li>UNLIMITED Logs</li>
+                            <li>AntiVPN Addon</li>
+                        </ul>
+                        <button id="buttonProfessional" data-sellix-custom-userid="{{.userid}}" data-sellix-product="" type="submit" alt="Buy Now">{{.buttonProfessional}}</button>
+                    </div>
+                    <div id="price-col">
+                        <p>ENTERPRISE</p>
+                        <h3>€ ? <span>/ ? month</span></h3>
+                        <ul>
+                            <li>UNLIMITED Applications</li>
+                            <li>UNLIMITED Licenses</li>
+                            <li>? Licenses each req</li>
+                            <li>UNLIMITED Users</li>
+                            <li>UNLIMITED Variables</li>
+                            <li>UNLIMITED Blacklists</li>
+                            <li>UNLIMITED Logs</li>
+                            <li>AntiVPN Addon</li>
+                            <li>Custom Features</li>
+                        </ul>
+                        <button>{{.buttonEnterprise}}</button>
+                    </div>
+                </div>
+                <br>
+			</div>
+		</div>
+		
+	
+	</section>
+
+
+    <script>
+		$(document).ready(function() {
+			$("#invoice-table").dataTable();
+		})
+	</script>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+	<script>
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>

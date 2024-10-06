@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Dashboard</title>
+	<link rel="stylesheet" href="../../../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../images/logofav.ico">
+
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+
+</head>
+
+<body id="panel-body" onload="Limitation({{.MsgOnError}})">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../../images/logo.png">
+			<h2>{{ .title }}</h2>
+			<div id="closing">
+				<span style="cursor:pointer" id="menu-btn-close"><img alt="closeMenu" src="../../../images/close.png"></span>
+			</div>
+		</div>
+
+		<div id="panel-items">
+			<li id="active-selection"><img alt="Dashboard" src="../../../images/dashboard.png"><a href="/panel/dashboard">Dashboard</a></li>
+			<li><img alt="Logs" src="../../../images/log.png"><a href="/panel/logs">Logs</a></li>
+			<li><img alt="Documentation" src="../../../images/documentation.png"><a href="#">Documentation</a></li>
+			<li><img alt="Resources" src="../../../images/resources.png"><a href="#">Resources</a></li>
+			<li><img alt="Account" src="../../../images/customer.png"><a href="/panel/account">Account</a></li>
+			<li><img alt="Support" src="../../../images/support.png"><a href="#">Support</a></li>
+		</div>
+	</section>
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<img id="menu-btn" src="../../../images/menu.png" alt="menu">
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			Dashboard
+		</h3>
+
+		<div id="panel-values">
+			<div id="val-box">
+				<i><img alt="app" width="30px" style="margin-top: 15px;" src="../../../images/application.png"></i>
+				<div>
+					<h3>{{ .applicationAmount }}</h3>
+					<span>Applications</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="key" width="40px" style="margin-top: 9px;" src="../../../images/key.png"></i>
+				<div>
+					<h3>{{ .totalLicenses }}</h3>
+					<span>Licenses</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="user" width="40px" style="margin-top: 9px;" src="../../../images/users.png"></i>
+				<div>
+					<h3>{{ .totalUsers }}</h3>
+					<span>Users</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="log" width="40px" style="margin-top: 9px;" src="../../../images/log.png"></i>
+				<div>
+					<h3>{{ .totalLogs }}</h3>
+					<span>Logs</span>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="application-table">
+			<table width="100%" id="app-table">
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Secret</td>
+						<td>Encryption Key</td>
+						<td>Status</td>
+						<td>Secret</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .Applications}}
+					<tr>
+						<td id="application-name">
+							<h5>{{.Name}}</h5>
+						</td>
+						<td id="application-secret">
+							<h5>{{.Secret}}</h5>
+						</td>
+						<td id="application-copy">
+							<a style="cursor: pointer;" onclick="return showKey({{.Pub_Key}})">Show</a>
+							<a style="cursor: pointer;" onclick="return confirmNewKeyPair({{.Name}},{{.Secret}})">New</a>
+						</td>
+						<td id="application-status">
+							<h5 style="background: {{ .Color }};">{{.Status}}</h5>
+						</td>
+						<td id="application-change"><a style="cursor: pointer;" onclick="return confirmNewSecret({{.Name}},{{.Secret}})">New</a></td>
+						<td id="application-edit"><a href="/panel/dashboard/app/{{.Secret}}">Edit</a></td>
+						<td id="application-remove"><a style="cursor: pointer;" onclick="return confirmDelete({{.Name}},{{.Secret}})">Remove</a></td>
+					</tr>
+					{{end}}
+				</tbody>
+
+			</table>
+		</div>
+
+
+		<div id="panel-add-app">
+			<div id="panel-add-app-container">
+				<h1 id="title-of-create-app">
+					Create new application
+				</h1>
+				<main id="panel-accordion">
+					<form method="POST" action="/panel/dashboard/create">
+						<input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+						<div id="inputBox-App">
+							<input type="text" name="applicationName" required="required" maxlength="256">
+							<span>Application Name</span>
+							<i></i>
+						</div>
+						<div id="inputBox-App">
+							<input type="submit" value="Create" maxlength="256">
+						</div>
+					</form>
+				</main>
+			</div>
+		</div>
+	</section>
+
+
+	<script>
+		$(document).ready(function() {
+			$("#app-table").dataTable();
+		})
+	</script>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+	<script>
+
+		function showKey(key) {
+			Swal.fire({
+				title: `Your Public Key`,
+				text: key,
+				icon: "info",
+			})
+		}
+
+		function Limitation(msg) {
+			if (msg == "app_limit_reached") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `You cannot create more than 1 application as a free user!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+
+			} else if (msg == "app_exists") {
+				Swal.fire({
+					title: `An application with this name already exists!`,
+					icon: "warning",
+				})
+			} else if (msg == "app_create_failed") {
+				Swal.fire({
+					title: `Error!`,
+					text: `Failed to create application, contact support!`,
+					icon: "error",
+				})
+			} else if (msg == "app_created") {
+				Swal.fire({
+					title: `Success!`,
+					text: `Application created!`,
+					icon: "success",
+				})
+			} else if (msg == "invalid_format") {
+				Swal.fire({
+					title: `Error!`,
+					text: `Please don't use any special characters!`,
+					icon: "error",
+				})
+			}
+
+		}
+
+		function confirmNewKeyPair(name, secret) {
+			Swal.fire({
+				title: `Are you sure you want to create a new key pair?`,
+				text: `You will get a new public key which needs to be replaced inside of your application!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+  				cancelButtonColor: '#d33',
+  				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/new-keypair`, {secret: secret, _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+
+		function confirmNewSecret(name, secret) {
+			Swal.fire({
+				title: `Are you sure you want to create a new secret?`,
+				text: `This action cannot be undone!\n ${name} will be unreachable with the old secret!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+  				cancelButtonColor: '#d33',
+  				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/new-secret`, {secret: secret, _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+		function confirmDelete(name, secret) {
+			Swal.fire({
+				title: `Are you sure you want to delete this application?`,
+				text: `This action cannot be undone!\n ${name} will be permanently deleted!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+  				cancelButtonColor: '#d33',
+  				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/remove`, {secret: secret, _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+	</script>
+
+	<script>
+		function post(path, params, method='post') {
+
+			// The rest of this code assumes you are not using a library.
+			// It can be made less verbose if you use one.
+			const form = document.createElement('form');
+			form.method = method;
+			form.action = path;
+
+			for (const key in params) {
+			if (params.hasOwnProperty(key)) {
+				const hiddenField = document.createElement('input');
+				hiddenField.type = 'hidden';
+				hiddenField.name = key;
+				hiddenField.value = params[key];
+
+				form.appendChild(hiddenField);
+			}
+			}
+
+			document.body.appendChild(form);
+			form.submit();
+			}
+	</script>
+
+	<script>
+		$('#menu-btn-close').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>

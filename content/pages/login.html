@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Sign In</title>
+	<link rel="stylesheet" href="../../style/style.css" type="text/css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="../images/logofav.ico">
+
+    <link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+    <meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+</head>
+
+<body id="bodyLogin" onload="MessageHandler({{.MsgOnError}})">
+    <h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+    <div id="box-login">
+        <form id="form-login" method="POST" action="/sign-in">
+            <h2>Sign in</h2>
+            <input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+            <div id="inputBox">
+                <input maxlength="256" type="text" id="username" name="username" required="required" onkeyup='saveValue(this);'>
+                <span>Username</span>
+                <i></i>
+            </div>
+            <div id="inputBox">
+                <input maxlength="256" type="password" name="password" required="required">
+                <span>Password</span>
+                <i></i>
+            </div>
+            <div id="links-login">
+                <a href="/pwd-recovery">Forgot Password</a>
+                <a href="/sign-up">Sign Up</a>
+            </div>
+            <input type="submit" value="Login" maxlength="256">
+        </div>
+    </div>
+
+    <script>
+        function MessageHandler(msg) {
+			if (msg == "passChanged") {
+				Swal.fire({
+					title: `Your password has been changed successfully!\nPlease login.`,
+					icon: "success",
+				})
+			} else if (msg == "invalidUsername") {
+				Swal.fire({
+					title: `The username you entered is invalid!`,
+					icon: "error",
+				})
+			} else if (msg == "accountInvalid") {
+				Swal.fire({
+					title: `Account doesn't exist!`,
+					icon: "error",
+				})
+			} else if (msg == "invalidCredentials") {
+				Swal.fire({
+					title: `Username or password invalid!`,
+					icon: "error",
+				})
+			}
+		}
+    </script>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("form-login").submit();
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        document.getElementById("username").value = getSavedValue("username");    // set the value to this input
+        /* Here you can add more inputs to set value. if it's saved */
+
+        //Save the value function - save it to sessionStorage as (ID, VALUE)
+        function saveValue(e){
+            var id = e.id;  // get the sender's id to save it . 
+            var val = e.value; // get the value. 
+            sessionStorage.setItem(id, val);// Every time user writing something, the sessionStorage's value will override . 
+        }
+
+        //get the saved value function - return the value of "v" from sessionStorage. 
+        function getSavedValue  (v){
+            if (!sessionStorage.getItem(v)) {
+                return "";// You can change this to your defualt value. 
+            }
+            return sessionStorage.getItem(v);
+        }
+    </script>
+
+</body>
+</html>

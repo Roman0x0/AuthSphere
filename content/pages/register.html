@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Sign Up</title>
+	<link rel="stylesheet" href="../style/style.css" type="text/css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="../images/logofav.ico">
+
+    <link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+    <meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+</head>
+
+<body id="bodyLogin" onload="MessageHandler({{.MsgOnError}})">
+    <h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+    <div id="box-register" style="height: {{.boxheight}};">
+        <form id="form-login" method="POST" action="/sign-up">
+            <h2>Sign Up</h2>
+            <input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+            <div id="inputBox">
+                <input type="text" id="email1" name="email" required="required" onkeyup='saveValue(this);' maxlength="256">
+                <span>Email</span>
+                <i></i>
+            </div>
+            <div id="inputBox">
+                <input type="text" id="username1" name="username" required="required" onkeyup='saveValue(this);' maxlength="256">
+                <span>Username</span>
+                <i></i>
+            </div>
+            <div id="inputBox">
+                <input type="password" id="pass1" name="pass" required="required" onkeyup='saveValue(this);' maxlength="256">
+                <span>Password</span>
+                <i></i>
+            </div>
+            <div id="inputBox">
+                <input type="password" id="pass2" name="passrepeat" required="required" onkeyup='saveValue(this);' maxlength="256">
+                <span>Confirm Password</span>
+                <i></i>
+            </div>
+            <div id="links-register">
+                <br>
+                <p>By signing up, you agree to the <a href="/terms-of-service">Terms of Service</a></p>
+                <p>Already have an account? <a href="/sign-in">Sign In</a></p>
+            </div>
+            <input type="submit" value="Register" maxlength="256">
+        </form>
+    </div>
+
+
+    <script>
+        function MessageHandler(msg) {
+			if (msg == "emailForbidden") {
+				Swal.fire({
+					title: `This email is not allowed!`,
+					icon: "warning",
+				})
+			} else if (msg == "usernameForbidden") {
+				Swal.fire({
+					title: `Invalid username!\nMake sure it only contains letters, numbers and is atleast 5 characters long.`,
+					icon: "error",
+				})
+			} else if (msg == "passwordForbidden") {
+				Swal.fire({
+					title: `Password needs to be atleast 8 characters long have atleast one number, special, lower & upper case character!`,
+					icon: "warning",
+				})
+			} else if (msg == "passwordMatchError") {
+				Swal.fire({
+					title: `Your passwords don't match!`,
+					icon: "error",
+				})
+			} else if(msg == "usernameTaken") {
+                Swal.fire({
+                    title: `Username is already taken!`,
+                    icon: "warning",
+                })
+            } else if(msg == "emailTaken") {
+                Swal.fire({
+                    title: `An account with this email already exists!`,
+                    icon: "error",
+                })
+            } else if(msg == "serverError") {
+                Swal.fire({
+                    title: `There was an error creating your account, please try again or contact support!`,
+                    icon: "error",
+                })
+            } else if(msg == "accountCreated") {
+                Swal.fire({
+                    title: "Account has been created!",
+                    icon: "success"
+                })
+            }
+		}
+    </script>
+	
+    <script type="text/javascript">
+        document.getElementById("username1").value = getSavedValue("username1");    // set the value to this input
+        document.getElementById("email1").value = getSavedValue("email1");   // set the value to this input
+        document.getElementById("pass1").value = getSavedValue("pass1");    // set the value to this input
+        document.getElementById("pass2").value = getSavedValue("pass2");
+        /* Here you can add more inputs to set value. if it's saved */
+
+        //Save the value function - save it to sessionStorage as (ID, VALUE)
+        function saveValue(e){
+            var id = e.id;  // get the sender's id to save it . 
+            var val = e.value; // get the value. 
+            sessionStorage.setItem(id, val);// Every time user writing something, the sessionStorage's value will override . 
+        }
+
+        //get the saved value function - return the value of "v" from sessionStorage. 
+        function getSavedValue  (v){
+            if (!sessionStorage.getItem(v)) {
+                return "";// You can change this to your defualt value. 
+            }
+            return sessionStorage.getItem(v);
+        }
+    </script>
+</body>
+</html>

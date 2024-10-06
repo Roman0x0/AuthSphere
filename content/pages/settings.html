@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | {{ .appName }} - Settings</title>
+	<link rel="stylesheet" href="../../../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../../../../images/logofav.ico">
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+</head>
+
+<body id="panel-body">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../../../images/logo.png">
+			<h2>{{ .title }}</h2>
+			<div id="closing">
+				<span style="cursor:pointer" id="menu-btn-close"><img alt="closeMenu" src="../../../../images/close.png"></span>
+			</div>
+		</div>
+
+		<div id="panel-items">
+            <li><img alt="Dashboard" src="../../../../images/dashboard.png"><a href="/panel/dashboard">Return to Dashboard</a></li>
+			<li><img alt="Overview" src="../../../../images/overview.png"><a href="/panel/dashboard/app/{{.Secret}}">Overview</a></li>
+			<li><img alt="Licenses" src="../../../../images/key.png"><a href="/panel/dashboard/app/{{.Secret}}/licenses">Licenses</a></li>
+			<li><img alt="Users" src="../../../../images/users.png"><a href="/panel/dashboard/app/{{.Secret}}/users">Users</a></li>
+			<li><img alt="Variables" src="../../../../images/variable.png"><a href="/panel/dashboard/app/{{.Secret}}/variables">Variables</a></li>
+			<li><img alt="Blacklists" src="../../../../images/blacklist.png"><a href="/panel/dashboard/app/{{.Secret}}/blacklists">Blacklists</a></li>
+			<li><img alt="Logs" src="../../../../../images/log.png"><a href="/panel/dashboard/app/{{.Secret}}/logs">Logs</a></li>
+			<li id="active-selection"><img alt="Settings" src="../../../../images/settings.png"><a href="/panel/dashboard/app/{{.Secret}}/settings">Settings</a></li>
+		</div>
+	</section>
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<img id="menu-btn" src="../../../../../images/menu.png" alt="menu">
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			{{ .appName }} - Settings
+		</h3>
+
+		<form method="POST" action="/panel/dashboard/app/settings">
+			<input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+			<input type="hidden" name="secret" value="{{.Secret}}" maxlength="256">
+			<div id="manage-settings">
+				<h1 id="title-of-settings">
+					Pause Application
+				</h1>
+				<label class="switch">
+					<input maxlength="256" name="checkBoxPauseApplication" type="checkbox" {{ .pauseApplication }}>
+					<span class="slider"></span>
+				</label>
+			</div>
+			<div id="manage-settings">
+				<h1 id="title-of-settings">
+					Integrity Check
+				</h1>
+				<label class="switch">
+					<input maxlength="256" name="checkBoxEnableIntegrity" type="checkbox" {{ .enableIntegrityCheck }}>
+					<span class="slider"></span>
+				</label>
+				<div id="inputBox-Settings">
+					<span>Hash</span>
+					<input maxlength="256" type="text" name="applicationHash" value="{{ .appHash }}">
+				</div>
+			</div>
+			<div id="manage-settings">
+				<h1 id="title-of-settings">
+					Application Updates
+				</h1>
+				<label class="switch">
+					<input maxlength="256" name="checkBoxEnableUpdates" type="checkbox" {{ .enableAppUpdates }}>
+					<span class="slider"></span>
+				</label>
+				<div id="inputBox-Settings">
+					<span style="min-width: 140px;">App Version</span>
+					<input maxlength="256" type="text" name="applicationVersion" required="required" value="{{ .appVersion }}">
+				</div>
+				<div id="inputBox-Settings">
+					<span style="min-width: 140px;">Update Link</span>
+					<input maxlength="256" type="text" name="applicationUpdateLink" value="{{ .appUpdateLink }}">
+				</div>
+			</div>
+			<div id="manage-settings">
+				<h1 id="title-of-settings">
+					Anti VPN (Virtual Private Network)
+				</h1>
+				<label class="switch">
+					<input {{.antiVPNCheckbox}} name="checkBoxAntiVPN" maxlength="256" type="checkbox" {{ .enableAntiVPN }}>
+					<span class="slider"></span>
+				</label>
+			</div>
+			<div id="manage-settings">
+				<div id="inputBox-Licenses">
+					<input type="submit" value="Save Settings" maxlength="256">
+				</div>
+			</div>
+			
+		</form>
+		
+
+
+		
+	</section>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+	<script>
+		$('#menu-btn-close').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>

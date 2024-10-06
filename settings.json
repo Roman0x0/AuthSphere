@@ -1,0 +1,29 @@
+{
+    "SiteName": "AuthSphere", // Your site name here
+    "SiteNameFirst": "Auth", // 
+    "SiteNameLast": "Sphere", // 
+
+    "SessionSecret": "yourSessionSecret", // generate strong values will be stored on server
+	"CSRFSecret": "yourGeneratedSecret", // generate strong values will be stored on server
+	"CaptchaSecret": "yourCaptchaSecret", // generate strong values will be stored on server
+	"SessionName": "authX", // name identifier for session example: "TestSiteAuth" 
+	"SessionFlag": "",
+
+    "DBLogin": "", // login to your database 
+	"DBPass": "", // password to your database
+	"DBConnection": "", // connection to your db: 127.0.0.1:3306
+	"DBName": "", // database name
+
+    "ErrorColor": "#b30000",
+	"GreenColor": "#29a329",
+	"YellowColor": "#ffff66",
+
+    "EmailBlockList": "disp-email-block.txt", // blocks a specific list of temporary emails to avoid spam and fake accounts
+	"FromEmail": "", // smtp email
+	"SMTPPass": "", // smtp pass
+	"ProjectName": "AuthSphere", // project name
+	"SMTPHost": "smtp.gmail.com", 
+	"SMTPPort": "587",
+
+    "DomainName": "http://127.0.0.1:5555"
+}

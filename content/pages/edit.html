@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | {{ .appName }}</title>
+	<link rel="stylesheet" href="../../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../../../images/logofav.ico">
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+</head>
+
+<body id="panel-body" onload="Limitation({{.MsgOnError}})">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../../images/logo.png">
+			<h2>{{ .title }}</h2>
+			<div id="closing">
+				<span style="cursor:pointer" id="menu-btn-close"><img alt="closeMenu" src="../../../images/close.png"></span>
+			</div>
+		</div>
+
+		<div id="panel-items">
+            <li><img alt="Dashboard" src="../../../images/dashboard.png"><a href="/panel/dashboard">Return to Dashboard</a></li>
+			<li id="active-selection"><img alt="Overview" src="../../../images/overview.png"><a href="/panel/dashboard/app/{{.Secret}}">Overview</a></li>
+			<li><img alt="Licenses" src="../../../images/key.png"><a href="/panel/dashboard/app/{{.Secret}}/licenses">Licenses</a></li>
+			<li><img alt="Users" src="../../../images/users.png"><a href="/panel/dashboard/app/{{.Secret}}/users">Users</a></li>
+			<li><img alt="Variables" src="../../../images/variable.png"><a href="/panel/dashboard/app/{{.Secret}}/variables">Variables</a></li>
+			<li><img alt="Blacklists" src="../../../images/blacklist.png"><a href="/panel/dashboard/app/{{.Secret}}/blacklists">Blacklists</a></li>
+			<li><img alt="Logs" src="../../../images/log.png"><a href="/panel/dashboard/app/{{.Secret}}/logs">Logs</a></li>
+			<li><img alt="Settings" src="../../../images/settings.png"><a href="/panel/dashboard/app/{{.Secret}}/settings">Settings</a></li>
+		</div>
+	</section>
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<img id="menu-btn" src="../../../images/menu.png" alt="menu">
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			Overview of {{ .appName }}
+		</h3>
+
+		<div id="panel-values">
+			<div id="val-box">
+				<i><img alt="users" width="30px" style="margin-top: 15px;" src="../../../images/users.png"></i>
+				<div>
+					<h3>{{ .userAmount }}</h3>
+					<span>Users</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="key" width="40px" style="margin-top: 9px;" src="../../../images/key.png"></i>
+				<div>
+					<h3>{{ .totalLicensesUnused }}</h3>
+					<span>Unused Licenses</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="key" width="40px" style="margin-top: 9px;" src="../../../images/key.png"></i>
+				<div>
+					<h3>{{ .totalLicensesUsed }}</h3>
+					<span>Used Licenses</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="var" width="30px" style="margin-top: 14px;" src="../../../images/variable.png"></i>
+				<div>
+					<h3>{{ .totalVariables }}</h3>
+					<span>Variables</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="blacklist" width="40px" style="margin-top: 9px;" src="../../../images/blacklist.png"></i>
+				<div>
+					<h3>{{ .totalBlacklists }}</h3>
+					<span>Blacklists</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="log" width="40px" style="margin-top: 9px;" src="../../../images/log.png"></i>
+				<div>
+					<h3>{{ .totalLogs }}</h3>
+					<span>Logs</span>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="panel-add-app">
+			<div id="panel-add-app-container">
+				<h1 id="title-of-create-app">
+					Rename Application
+				</h1>
+			
+				<main id="panel-accordion">
+					<form method="POST" action="/panel/dashboard/update">
+						<input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+						<div id="inputBox-App">
+							<input type="hidden" name="secret" value="{{.Secret}}" maxlength="256">
+							<input type="text" name="applicationName" required="required" maxlength="256">
+							<span>New Application Name</span>
+							<i></i>
+						</div>
+						<div id="inputBox-App">
+							<input type="submit" value="Update" maxlength="256">
+						</div>
+					</form>
+				</main>
+			</div>
+		</div>
+
+
+		
+	</section>
+
+	<script>
+		function Limitation(msg) {
+			if (msg == "app_locked") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `This app has been locked, upgrade your subscription to unlock it!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+			} else if (msg == "app_exists") {
+				Swal.fire({
+					title: `An application with this name already exists!`,
+					icon: "warning",
+				})
+			} else if (msg == "invalid_format") {
+				Swal.fire({
+					title: `Error!`,
+					text: `Please don't use any special characters!`,
+					icon: "error",
+				})
+			}
+		}
+	</script>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+	<script>
+		$('#menu-btn-close').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>

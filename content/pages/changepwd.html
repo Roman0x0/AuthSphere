@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Change Password</title>
+	<link rel="stylesheet" href="../../style/style.css" type="text/css">
+	<link rel="icon" type="image/x-icon" href="../images/logofav.ico">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+    
+    <link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+    <meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+</head>
+
+<body id="bodyLogin" onload="MessageHandler({{.MsgOnError}})">
+    <h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+    <div id="box-login">
+        <form id="form-login" method="POST" action="/change-password">
+            <h2>Change password</h2>
+            <input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+            <input type="hidden" name="pass" value="{{.pass}}" maxlength="256">
+            <input type="hidden" name="username" value="{{.username}}" maxlength="256">
+            <div id="inputBox">
+                <input type="password" name="passwordOne" required="required" maxlength="256">
+                <span>Password</span>
+                <i></i>
+            </div>
+            <div id="inputBox">
+                <input type="password" name="passwordTwo" required="required" maxlength="256">
+                <span>Re-enter Password</span>
+                <i></i>
+            </div>
+            <input type="submit" value="Change" maxlength="256">
+        </div>
+
+    </div>
+	
+    <script>
+        function MessageHandler(msg) {
+			if (msg == "linkExpired") {
+				Swal.fire({
+					title: `Reset link expired please request a new one!`,
+					icon: "error",
+				})
+			} else if (msg == "invalidCode") {
+				Swal.fire({
+					title: `Invalid verification code!`,
+					icon: "error",
+				})
+			} else if (msg == "invalidCode") {
+				Swal.fire({
+					title: `Invalid verification code!`,
+					icon: "error"
+				})
+			} else if(msg == "invalid") {
+                Swal.fire({
+                    title: "There was an issue updating your password!",
+                    icon: "error"
+                })
+            } else if(msg == "invalidPassword") {
+                Swal.fire({
+                    title: "Password needs to be atleast 8 characters long have atleast one number, special, lower & upper case character!",
+                    icon: "error"
+                })
+            } else if(msg == "passwordMatchError") {
+                Swal.fire({
+                    title: "Your passwords don't match!",
+                    icon: "error"
+                })
+            }
+		}
+    </script>
+
+</body>
+</html>

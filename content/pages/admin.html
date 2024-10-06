@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Dashboard</title>
+	<link rel="stylesheet" href="../../../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../images/logofav.ico">
+
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+
+</head>
+
+<body id="panel-body" onload="Limitation({{.MsgOnError}})">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../../images/logo.png">
+			<h2>{{ .title }}</h2>
+			<div id="closing">
+				<span style="cursor:pointer" id="menu-btn-close"><img alt="closeMenu" src="../../../images/close.png"></span>
+			</div>
+		</div>
+
+		<div id="panel-items">
+			<li><img alt="Dashboard" src="../../../images/dashboard.png"><a href="/panel/dashboard">Dashboard</a></li>
+		</div>
+	</section>
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<img id="menu-btn" src="../../../images/menu.png" alt="menu">
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			Admin Dashboard
+		</h3>
+
+		<div id="panel-values">
+			<div id="val-box">
+				<i><img alt="app" width="30px" style="margin-top: 15px;" src="../../../images/users.png"></i>
+				<div>
+					<h3>{{ .totalRegisteredUsers }}</h3>
+					<span>Registered Users</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="key" width="40px" style="margin-top: 9px;" src="../../../images/users.png"></i>
+				<div>
+					<h3>{{ .totalVerifiedUsers }}</h3>
+					<span>Verified Users</span>
+				</div>
+			</div>
+			<div id="val-box">
+				<i><img alt="user" width="40px" style="margin-top: 9px;" src="../../../images/cash.png"></i>
+				<div>
+					<h3>{{ .totalSubscriptions }}</h3>
+					<span>Active Subscriptions</span>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<script>
+		$(document).ready(function() {
+			$("#app-table").dataTable();
+		})
+	</script>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+</body>
+</html>

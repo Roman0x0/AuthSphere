@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Account</title>
+	<link rel="stylesheet" href="../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../../images/logofav.ico">
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+</head>
+
+<body id="panel-body" onload="MessageHandler({{.MsgOnError}})">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../images/logo.png">
+			<h2>{{ .title }}</h2>
+			<div id="closing">
+				<span style="cursor:pointer" id="menu-btn-close"><img alt="closeMenu" src="../../../images/close.png"></span>
+			</div>
+		</div>
+
+		<div id="panel-items">
+			<li><img alt="Dashboard" src="../../images/dashboard.png"><a href="/panel/dashboard">Dashboard</a></li>
+			<li><img alt="Logs" src="../../images/log.png"><a href="/panel/logs">Logs</a></li>
+			<li><img alt="Documentation" src="../../images/documentation.png"><a href="#">Documentation</a></li>
+			<li><img alt="Resources" src="../../images/resources.png"><a href="#">Resources</a></li>
+			<li id="active-selection"><img alt="Account" src="../../images/customer.png"><a href="/panel/account">Account</a></li>
+			<li><img alt="Support" src="../../images/support.png"><a href="#">Support</a></li>
+		</div>
+	</section>
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<img id="menu-btn" src="../../images/menu.png" alt="menu">
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../images/support_p.png"><a href="https://discord.gg/xgAH6FMv5t">Support</a></li>
+					<li><img alt="logout" src="../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			Account
+		</h3>
+
+        <div id="account-table">
+			<table width="100%">
+				  <tr>
+                    <th>Username</th>
+                    <td>{{ .username }}</td>
+                  </tr>
+                  <tr>
+                    <th>ID</th>
+                    <td>{{ .userid }}</td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td>{{ .user_email }}</td>
+                  </tr>
+				  <tr>
+                    <th>Role</th>
+                    <td>{{ .user_role }}</td>
+                  </tr>
+                  <tr>
+                    <th>Active Plan</th>
+                    <td>{{ .user_active_plan }}</td>
+                  </tr>
+				  <tr>
+                    <th>Subscription Expires</th>
+                    <td>{{ .user_sub_exp }}</td>
+                  </tr>
+                  <tr>
+                    <th>Verified</th>
+                    <td style="color: {{ .colorVerifiedStatus }};">{{ .verified }}</td>
+                  </tr>
+			</table>
+		</div>
+
+		<div id="panel-account-upgrade">
+			<div id="panel-account-upgrade-container">
+				<div id="inputBox-Upgrade">
+					<a href="/upgrade">
+						<input type="submit" value="Upgrade Account">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="panel-settings-2fa">
+			<div id="panel-settings-2fa-container">
+				<h1 id="title-of-create-app">
+					2 Factor Authentification
+				</h1>
+				<img alt="QR-Code" onerror="this.style.display='none'" style="width: 250px;height: 250px;margin-left: 20px;margin-bottom: 20px;" src="data:image/png;base64,{{.QRCode}}">
+				<main id="panel-accordion">
+					<div id="inputBox-App">
+						<input type="submit" value="{{.ButtonText2FA}}" onclick="return onHandle2FA({{.ButtonText2FA}})">
+					</div>
+				</main>
+			</div>
+		</div>
+		
+	
+	</section>
+
+	<script>
+        function MessageHandler(msg) {
+			if (msg == "alreadyVerified") {
+				Swal.fire({
+					title: `Account is already verified!`,
+					icon: "warning",
+				})
+			} else if (msg == "requestLimit") {
+				Swal.fire({
+					title: `You can request a new link in 30 minutes again!`,
+					icon: "error",
+				})
+			} else if (msg == "failed") {
+				Swal.fire({
+					title: `Failed to send email verification code, try again later!`,
+					icon: "error",
+				})
+			} else if (msg == "linkSent") {
+				Swal.fire({
+					title: `Verification link has been sent to your email!`,
+					icon: "success",
+				})
+			} else if (msg == "requireVerify") {
+				Swal.fire({
+					title: "Please verify your account!",
+					icon: "info",
+					footer: '<a href="/panel/account/request-verification">Click here to request verification link</a>'
+				})
+			}
+		}
+    </script>
+
+
+	<script>
+
+		function onHandle2FA(action) {
+			if (action == "Disable") {
+				Swal.fire({
+					title: `Are you sure you want to disable 2FA?`,
+					text: `Your account will be less secure!`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes!',
+				
+				}).then((result) => {
+				if (result.isConfirmed) {
+					post(`/panel/account/2fa/disable`, {_csrf: "{{.csrf}}"})
+				}
+				})
+			} else {
+				post(`/panel/account/2fa/enable`, {_csrf: "{{.csrf}}"})
+			}
+		}
+	</script>
+
+	<script>
+		function post(path, params, method='post') {
+
+			// The rest of this code assumes you are not using a library.
+			// It can be made less verbose if you use one.
+			const form = document.createElement('form');
+			form.method = method;
+			form.action = path;
+
+			for (const key in params) {
+			if (params.hasOwnProperty(key)) {
+				const hiddenField = document.createElement('input');
+				hiddenField.type = 'hidden';
+				hiddenField.name = key;
+				hiddenField.value = params[key];
+
+				form.appendChild(hiddenField);
+			}
+			}
+
+			document.body.appendChild(form);
+			form.submit();
+			}
+	</script>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+	<script>
+		$('#menu-btn-close').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | {{ .appName }} - Licenses</title>
+	<link rel="stylesheet" href="../../../../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../../../../../images/logofav.ico">
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+</head>
+
+<body id="panel-body" onload="Limitation({{.MsgOnError}})">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../../../../images/logo.png">
+			<h2>{{ .title }}</h2>
+			<div id="closing">
+				<span style="cursor:pointer" id="menu-btn-close"><img alt="closeMenu" src="../../../../../images/close.png"></span>
+			</div>
+		</div>
+
+		<div id="panel-items">
+            <li><img alt="Dashboard" src="../../../../../images/dashboard.png"><a href="/panel/dashboard">Return to Dashboard</a></li>
+			<li><img alt="Overview" src="../../../../../images/overview.png"><a href="/panel/dashboard/app/{{.Secret}}">Overview</a></li>
+			<li id="active-selection"><img alt="Licenses" src="../../../../../images/key.png"><a href="/panel/dashboard/app/{{.Secret}}/licenses">Licenses</a></li>
+			<li><img alt="Users" src="../../../../../images/users.png"><a href="/panel/dashboard/app/{{.Secret}}/users">Users</a></li>
+			<li><img alt="Variables" src="../../../../../images/variable.png"><a href="/panel/dashboard/app/{{.Secret}}/variables">Variables</a></li>
+			<li><img alt="Blacklists" src="../../../../../images/blacklist.png"><a href="/panel/dashboard/app/{{.Secret}}/blacklists">Blacklists</a></li>
+			<li><img alt="Logs" src="../../../../../images/log.png"><a href="/panel/dashboard/app/{{.Secret}}/logs">Logs</a></li>
+			<li><img alt="Settings" src="../../../../../images/settings.png"><a href="/panel/dashboard/app/{{.Secret}}/settings">Settings</a></li>
+		</div>
+	</section>
+
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<img id="menu-btn" src="../../../../../images/menu.png" alt="menu">
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../../../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../../../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../../../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../../../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			{{ .appName }} - Licenses
+		</h3>
+
+		<div id="manage-licenses">
+			<h1 id="title-of-create-app">
+				Manage Licenses
+			</h1>
+			<button onclick="return onDeleteAll({{.Secret}})">Remove All Licenses</button>
+			<button onclick="return onDeleteAllUnused({{.Secret}})">Remove All Unused Licenses</button>
+			<button onclick="return onDeleteAllUsed({{.Secret}})">Remove All Used Licenses</button>
+			<button onclick="return onDownloadAll({{.Secret}})">Download All Licenses</button>
+		</div>
+	
+		<div id="manage-licenses-add">
+			<h1 id="title-of-create-app">
+				Create Licenses
+			</h1>
+			<form method="POST" action="/panel/dashboard/app/licenses">
+				<input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+				<input type="hidden" name="secret" value="{{.Secret}}" maxlength="256">
+				<input type="hidden" name="action" value="create" maxlength="256">
+				<div id="inputBox-Licenses">
+					<span>Amount</span>
+					<input maxlength="256" type="number" min="1" name="licenseAmount" required="required" value="1">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Prefix</span>
+					<input maxlength="256" type="text" name="licensePrefix" required="required" value="AuthSphere">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Length</span>
+					<input maxlength="256" type="number" name="licenseLength" required="required" value="16" min="8" max="64">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Expiration</span>
+					<input maxlength="256" type="number" name="licenseExpiration" required="required" value="1" min="1" max="99999">
+					<span>in days</span>
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Level</span>
+					<input maxlength="256" type="number" name="licenseLevel" required="required" value="0" min="0" max="10">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Format</span>
+					<select name="licenseFormat" id="licenseFormat-input">
+						<option value="XXXX-XXXX-XXXX-XXXX">XXXX-XXXX-XXXX-XXXX</option>
+						<option selected value="[PREFIX]-XXXX-XXXX-XXXX">[PREFIX]-XXXX-XXXX-XXXX</option>
+						<option value="[PREFIX]-[LENGTH]">[PREFIX]-[LENGTH]</option>
+					</select>
+				</div>
+				<div id="inputBox-Licenses">
+					<input maxlength="256" type="submit" value="Generate Licenses">
+				</div>
+			</form>
+		</div>
+
+        <div id="application-table">
+			<table width="100%" id="license-table">
+				<thead>
+					<tr>
+						<td>License</td>
+						<td>Expires</td>
+						<td>Used</td>
+                        <td>Used By</td>
+						<td>Level</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .Licenses}}
+					<tr>
+						<td id="application-name">
+							<h5>{{.License}}</h5>
+						</td>
+						<td id="application-secret">
+							<h5>{{.Exp}} day/s</h5>
+						</td>
+						<td id="application-status">
+							<h5 style="background: {{ .Color }};">{{.Used}}</h5>
+						</td>
+						<td id="application-name">
+							<h5>{{.Used_By}}</h5>
+						</td>
+						<td id="application-secret">
+							<h5>{{.Level}}</h5>
+						</td>
+						<td id="application-edit"><a style="cursor: pointer;" onclick="return unuseLicense({{.App_Secret}},{{.License}})">Unuse</a></td>
+						<td id="application-remove"><a style="cursor: pointer;" onclick="return deleteLicense({{.App_Secret}},{{.License}})">Delete</a></td>
+
+					</tr>
+					{{end}}
+				</tbody>
+
+			</table>	
+		</div>
+
+	</section>
+
+	<script>
+		$(document).ready(function() {
+			$("#license-table").dataTable();
+		})
+	</script>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+	<script>
+		function post(path, params, method='post') {
+
+			// The rest of this code assumes you are not using a library.
+			// It can be made less verbose if you use one.
+			const form = document.createElement('form');
+			form.method = method;
+			form.action = path;
+
+			for (const key in params) {
+			if (params.hasOwnProperty(key)) {
+				const hiddenField = document.createElement('input');
+				hiddenField.type = 'hidden';
+				hiddenField.name = key;
+				hiddenField.value = params[key];
+
+				form.appendChild(hiddenField);
+			}
+			}
+
+			document.body.appendChild(form);
+			form.submit();
+			}
+	</script>
+
+	<script>
+
+		function onDownloadAll(secret) {
+			post(`/panel/dashboard/app/licenses/download`, {secret: secret, _csrf: "{{.csrf}}"})
+		}
+
+		function unuseLicense(secret, license) {
+			Swal.fire({
+					title: `Unuse ${license}?`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/licenses`, {secret: secret, action: "unuse", license: license, _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+		function deleteLicense(secret, license) {
+			Swal.fire({
+					title: `Remove ${license}?`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/licenses`, {secret: secret, action: "remove", license: license, _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+	  	function Limitation(msg) {
+			if (msg == "create_limit") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `You cannot create more than 5 licenses at a time as a free user!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+
+			} else if (msg == "prefix_required") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `You cannot use a custom prefix, please upgrade to premium version!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+			} else if (msg == "length_limit") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `You cannot use a custom length for your licenses, please upgrade to premium version!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+			} else if (msg == "total_create_limit") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `You cannot create more than 30 licenses as a free user!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+			} else if (msg == "format_limit") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `You cannot use this format for your licenses as a free user, please upgrade to premium version!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+			} else if (msg == "invalid_format") {
+				Swal.fire({
+					title: `Error!`,
+					text: `Please don't use any special characters!`,
+					icon: "error",
+				})
+			}
+		}
+	
+
+		function onDeleteAll(secret) {
+			Swal.fire({
+					title: `Are you sure you want to delete all licenses?`,
+					text: `This action cannot be undone!`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/licenses`, {secret: secret, action: "remove-all", _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+		function onDeleteAllUsed(secret) {
+			Swal.fire({
+					title: `Are you sure you want to delete all used licenses?`,
+					text: `This action cannot be undone!`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/licenses`, {secret: secret, action: "remove-all-used", _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+		function onDeleteAllUnused(secret) {
+			Swal.fire({
+					title: `Are you sure you want to delete all unused licenses?`,
+					text: `This action cannot be undone!`,
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/licenses`, {secret: secret, action: "remove-all-unused", _csrf: "{{.csrf}}"})
+			}
+			})
+		} 
+	</script>
+
+	<script>
+		$('#menu-btn-close').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>

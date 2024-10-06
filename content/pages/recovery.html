@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | Recover Account</title>
+	<link rel="stylesheet" href="../style/style.css" type="text/css">
+	<link rel="icon" type="image/x-icon" href="../images/logofav.ico">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+</head>
+
+<body id="bodyLogin" onload="MessageHandler({{.MsgOnError}})">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+    <div id="box-login">
+        <form id="form-login" method="POST" action="/pwd-recovery">
+            <h2>Enter email associated with your account</h2>
+            <input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+            <div id="inputBox">
+                <input type="text" name="email" required="required" maxlength="256">
+                <span>Email</span>
+                <i></i>
+            </div>
+            <input type="submit" value="Submit" maxlength="256">
+        </div>
+
+    </div>
+	
+
+    <script>
+        function MessageHandler(msg) {
+			if (msg == "requestLimit") {
+				Swal.fire({
+					title: `You can request a new link in 5 minutes!`,
+					icon: "warning",
+				})
+			} else if (msg == "invalid") {
+				Swal.fire({
+					title: `Unable to send recovery email, please try again later!`,
+					icon: "error",
+				})
+			} else if (msg == "emailSent") {
+				Swal.fire({
+					title: `We have sent a reset link to your email!`,
+					icon: "success",
+				})
+			} 
+		}
+    </script>
+
+</body>
+</html>

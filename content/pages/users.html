@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ .title }} | {{ .appName }} - Users</title>
+	<link rel="stylesheet" href="../../../../style/style.css" type="text/css">
+	<script src="https://kit.fontawesome.com/8bcfaf3631.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2/dist/sweetalert2.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="../../../../images/logofav.ico">
+
+
+	<link rel="canonical" href="https://AuthSphere.com" />
+	<meta charset="UTF-8">
+    <meta name="description" content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+    <meta name="keywords" content="AuthSphere, Authentication, Licensing, Encrypted Licensing, Licensing As A Service, Authentication Service, Licensing Service, Free Licensing, Cloud Licensing, Cloud Authentication, Auth Service">
+    <meta name="author" content="AuthSphere">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property=”og:site_name” content="AuthSphere | Secure Licensing & Authentication Service" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta itemprop="name" content="AuthSphere | Free Licensing & Authentication">
+    <meta itemprop="description"
+       content="Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.">
+	<meta itemprop="image" content="https://AuthSphere.com/images/logo.png">
+
+	<meta property="og:title" content="AuthSphere - Free Licensing & Authentication" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="./" />
+	<meta property="og:image" content="https://AuthSphere.com/images/logo.png"/>
+	<script>
+		var HW_config = {
+		  selector: "h6",
+		  account:  "yZap0J",
+		}
+    </script>
+	<script async src="https://cdn.headwayapp.co/widget.js"></script>
+</head>
+
+<body id="panel-body" onload="Limitation({{.MsgOnError}})">
+	<h1 hidden>Free secure licensing & authentication service using highest hybrid encryption standards. Secure your software and application for a fair price.</h1>
+	<section id="panel-menu">
+		<div id="logo">
+			<img alt="LOGO HERE" src="../../../../images/logo.png">
+			<h2>{{ .title }}</h2>
+			<div id="closing">
+				<span style="cursor:pointer" id="menu-btn-close"><img alt="closeMenu" src="../../../../images/close.png"></span>
+			</div>
+		</div>
+
+		<div id="panel-items">
+            <li><img alt="Dashboard" src="../../../../images/dashboard.png"><a href="/panel/dashboard">Return to Dashboard</a></li>
+			<li><img alt="Overview" src="../../../../images/overview.png"><a href="/panel/dashboard/app/{{.Secret}}">Overview</a></li>
+			<li><img alt="Licenses" src="../../../../images/key.png"><a href="/panel/dashboard/app/{{.Secret}}/licenses">Licenses</a></li>
+			<li id="active-selection"><img alt="Users" src="../../../../images/users.png"><a href="/panel/dashboard/app/{{.Secret}}/users">Users</a></li>
+			<li><img alt="Variables" src="../../../../images/variable.png"><a href="/panel/dashboard/app/{{.Secret}}/variables">Variables</a></li>
+			<li><img alt="Blacklists" src="../../../../images/blacklist.png"><a href="/panel/dashboard/app/{{.Secret}}/blacklists">Blacklists</a></li>
+			<li><img alt="Logs" src="../../../../../images/log.png"><a href="/panel/dashboard/app/{{.Secret}}/logs">Logs</a></li>
+			<li><img alt="Settings" src="../../../../images/settings.png"><a href="/panel/dashboard/app/{{.Secret}}/settings">Settings</a></li>
+		</div>
+	</section>
+
+
+
+	<section id="panel-interface">
+		<div id="panel-navigation">
+			<div>
+				<div>
+					<img id="menu-btn" src="../../../../images/menu.png" alt="menu">
+				</div>
+			</div>
+			<div id="profile" onclick="menuToggle();">
+				<h6></h6>
+				<img src="../../../../images/customer.png" alt="account logo">
+			</div>
+			<div id="profile-menu">
+				<h3>{{ .username }}<br><span>Welcome back!</span></h3>
+				<ul>
+					<li><img alt="settings" src="../../../../images/settings_p.png"><a href="/panel/account">Settings</a></li>
+					<li><img alt="support" src="../../../../images/support_p.png"><a href="#">Support</a></li>
+					<li><img alt="logout" src="../../../../images/logout.png"><a href="/sign-out">Logout</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<h3 id="i-name">
+			{{ .appName }} - Users
+		</h3>
+
+		<div id="manage-licenses">
+			<h1 id="title-of-create-app">
+				Manage Users
+			</h1>
+			<button onclick="return onDeleteAll({{.Secret}})">Remove All Users</button>
+			<button onclick="return onDeleteAllExpired({{.Secret}})">Remove All Expired Users</button>
+			<button onclick="return onResetAllHWIDs({{.Secret}})">Reset All HWIDs</button>
+		</div>
+
+		<div id="manage-licenses-add">
+			<h1 id="title-of-create-app">
+				Add User
+			</h1>
+			<h2 id="title-verify-account" style="color: {{.userColor}};margin-bottom: 10px;font-size: 1.2rem;text-align: left;margin-left: 20px;">{{ .userMsg }}</h2>
+			<form method="POST" action="/panel/dashboard/app/users">
+				<input type="hidden" name="_csrf" value="{{.csrf}}" maxlength="256">
+				<input type="hidden" name="action" value="create" maxlength="256">
+				<input type="hidden" name="secret" value="{{.Secret}}" maxlength="256">
+				<div id="inputBox-Licenses">
+					<span>Username</span>
+					<input type="text" name="userUsername" required="required" value="" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<span>Password</span>
+					<input type="text" name="userPassword" required="required" value="" maxlength="256">
+				</div>
+				<div id="inputBox-Licenses">
+					<input type="submit" value="Submit" maxlength="256">
+				</div>
+			</form>
+		</div>
+		
+		<div id="application-table">
+			<table width="100%" id="users-table">
+				<thead>
+					<tr>
+						<td>Username</td>
+						<td>Email</td>
+						<td>Expires</td>
+						<td>Banned</td>
+						<td>Last Login</td>
+						<td>Created At</td>
+						<td>HWID</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .Users}}
+					<tr>
+						<td id="application-name">
+							<h5>{{.Username}}</h5>
+						</td>
+						<td id="application-secret">
+							<h5>{{.Email}}</h5>
+						</td>
+						<td id="application-status">
+							<h5 style="background: {{ .Color }};">{{.Exp_Date}}</h5>
+						</td>
+
+						<td id="application-status">
+							<h5 style="background: {{ .ColorBanned }};">{{.Banned}}</h5>
+						</td>
+						<td id="application-secret">
+							<h5>{{.Last_Login}}</h5>
+						</td>
+						<td id="application-secret">
+							<h5>{{.Created_At}}</h5>
+						</td>
+						<td id="application-edit"><a style="cursor: pointer;" onclick="return resetHWID({{.App_Secret}},{{.Username}})">Reset</a></td>
+						<td id="application-change"><a style="cursor: pointer;" onclick="return banUser({{.App_Secret}},{{.Username}})">Ban</a></td>
+						<td id="application-edit"><a style="cursor: pointer;" onclick="return editUser({{.App_Secret}},{{.Username}})">Edit</a></td>
+						<td id="application-remove"><a style="cursor: pointer;" onclick="return onDeleteUser({{.App_Secret}},{{.Username}})">Remove</a></td>
+					</tr>
+					{{end}}
+				</tbody>
+
+			</table>	
+		</div>
+
+		
+	</section>
+
+
+	<script>
+		$(document).ready(function() {
+			$("#users-table").dataTable();
+		})
+	</script>
+
+	<script>
+		function post(path, params, method='post') {
+
+			// The rest of this code assumes you are not using a library.
+			// It can be made less verbose if you use one.
+			const form = document.createElement('form');
+			form.method = method;
+			form.action = path;
+
+			for (const key in params) {
+			if (params.hasOwnProperty(key)) {
+				const hiddenField = document.createElement('input');
+				hiddenField.type = 'hidden';
+				hiddenField.name = key;
+				hiddenField.value = params[key];
+
+				form.appendChild(hiddenField);
+			}
+			}
+
+			document.body.appendChild(form);
+			form.submit();
+			}
+	</script>
+
+
+	<script>
+		function Limitation(msg) {
+			if (msg == "user_limit_reached") {
+				Swal.fire({
+					title: `Limitation reached!`,
+					text: `You cannot create more than 30 users as a free user!`,
+					icon: "error",
+					footer: '<a href="/upgrade">Click here to upgrade</a>'
+				})
+
+			} else if (msg == "user_exists") {
+				Swal.fire({
+					title: `Error!`,
+					text: `A user with this username already exists!`,
+					icon: "error",
+				})
+			} else if (msg == "invalid_format") {
+				Swal.fire({
+					title: `Error!`,
+					text: `Please don't use any special characters!`,
+					icon: "error",
+				})
+			}
+		}
+
+
+		function banUser(secret, username) {
+			Swal.fire({
+				title: `Are you sure you want to ban ${username}?`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/users`, {secret: secret, action: "ban", username: username, _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+		function editUser(secret, username) {
+			post(`/panel/dashboard/app/users`, {secret: secret, action: "edit", username: username, _csrf: "{{.csrf}}"})
+		}
+
+		function resetHWID(secret, username) {
+			Swal.fire({
+				title: `Are you sure you want to reset ${username}'s HWID?`,
+				text: `This action cannot be undone!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					position: 'center',
+					icon: 'success',
+					title: 'HWID has been resetted!',
+					showConfirmButton: false,
+					timer: 1500
+				}).then((result) => {
+					post(`/panel/dashboard/app/users`, {secret: secret, action: "reset-hwid", username: username, _csrf: "{{.csrf}}"})
+				})
+			}
+			})
+		}
+
+
+		function onDeleteUser(secret, username) {
+			Swal.fire({
+				title: `Are you sure you want to delete user: ${username}?`,
+				text: `This action cannot be undone!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/users`, {secret: secret, action: "remove", username: username, _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+		
+		function onDeleteAll(secret) {
+			Swal.fire({
+				title: `Are you sure you want to delete all users?`,
+				text: `This action cannot be undone!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/users`, {secret: secret, action: "remove-all", _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+		function onDeleteAllExpired(secret) {
+
+			Swal.fire({
+				title: `Are you sure you want to delete all expired users?`,
+				text: `This action cannot be undone!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/users`, {secret: secret, action: "remove-all-expired", _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+
+		function onResetAllHWIDs(secret) {
+			Swal.fire({
+				title: `Are you sure you want to reset all HWIDs?`,
+				text: `This action cannot be undone!`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes!',
+				
+			}).then((result) => {
+			if (result.isConfirmed) {
+				post(`/panel/dashboard/app/users`, {secret: secret, action: "reset-all-hwids", _csrf: "{{.csrf}}"})
+			}
+			})
+		}
+	</script>
+
+	<script>
+		function menuToggle() {
+			const toggleMenu = document.querySelector("#profile-menu")
+			toggleMenu.classList.toggle('active')
+		}
+	</script>
+
+	<script>
+		$('#menu-btn-close').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+
+		$('#menu-btn').click(function() {
+			$('#panel-menu').toggleClass("active");
+		})
+	</script>
+
+</body>
+</html>
