@@ -14,6 +14,7 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 ## Requirements
  - <a href="https://go.dev">GoLang</a> is required
  - MySQL database
+ - <a href="https://github.com/Roman0x0/AuthSphere-API">AuthSphere API</a> is required
 
 ## Features 
  - Multiple applications
